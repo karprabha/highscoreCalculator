@@ -16,6 +16,11 @@ void fileRead(std::vector<std::string> &names,std::vector<double> &scores)
 
 	std::ifstream inFile("highscores.txt"); // You can custom location your file like - "Dirve:\\Folder\\Subfolder\\file.extension" we use double \\ as in string \\ => \ , example - "F:\\C++ Projects\\Files\\Highscores\\highscores.txt"
 
+	if(!inFile) //If file not found
+	{
+		inFile.open("highscores.txt",std::ios::app); // It is not good to use output mode in ifstream. In C++11 ifstream.open() function clears the stream's state flags on success (setting them to goodbit).In case of failure, failbit is set.
+	}
+
 	if(inFile.is_open())
     {
 		while(getline(inFile,name))
@@ -86,7 +91,7 @@ void fileWrite(std::vector<std::string> &names,std::vector<double> &scores)
 	}
 	else
 	{
-		cout<<" ERROR !! System is unable to while file"<<std::endl;
+		cout<<" ERROR !! System is unable to write file"<<std::endl;
 	}
 
 	oFile.close();
